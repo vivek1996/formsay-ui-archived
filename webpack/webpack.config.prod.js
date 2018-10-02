@@ -12,17 +12,17 @@ module.exports = merge(common, {
   devtool: 'source-map',
   stats: 'errors-only',
   optimization: {
-    minimize: true,
-    splitChunks: {
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true
-        }
-      }
-    }
+    minimize: true
+    // splitChunks: {
+    //   cacheGroups: {
+    //     styles: {
+    //       name: 'styles',
+    //       test: /\.css$/,
+    //       chunks: 'all',
+    //       enforce: true
+    //     }
+    //   }
+    // }
   },
   plugins: [
     new Webpack.DefinePlugin({
@@ -32,10 +32,10 @@ module.exports = merge(common, {
     new Webpack.optimize.ModuleConcatenationPlugin(),
     new MiniCssExtractPlugin({
       filename: 'bundle.css'
-    }),
-    new PurgecssPlugin({
-      paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-    }),
+    })
+    // new PurgecssPlugin({
+    //   paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true })
+    // })
   ],
   resolve: {
     alias: {
@@ -51,11 +51,7 @@ module.exports = merge(common, {
       },
       {
         test: /\.s?css/i,
-        use : [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader'
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
   }
